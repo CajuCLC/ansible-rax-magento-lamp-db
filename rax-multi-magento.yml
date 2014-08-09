@@ -74,7 +74,8 @@
 
   roles:
     - common
-    - mysql
+    - { role: mysql, when: db_choice == 'mysql' }
+    - { role: percona, when: db_choice == 'percona' }
 
 - name: Install magento, httpd, PHP and Varnish
   hosts: web
@@ -83,5 +84,5 @@
     - common
     - httpd
     - php
-    - magento
-    - varnish
+    - { role: varnish, when: varnish_install == 'install' }
+    - { role: magento, when: magento_install == 'install' }
